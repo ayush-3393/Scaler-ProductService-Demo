@@ -1,5 +1,6 @@
 package com.scalerproductservice.scalerproductservicedemo.controllers;
 
+import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,13 @@ public class ProductController {
     }
 
     @PostMapping()
-    public String addNewProduct(@RequestBody Product product){
-        return "Adding new Product";
+    public String addNewProduct(@RequestBody ProductDto productDto){
+        return "Adding new Product with product " + productDto;
     }
 
     @PutMapping("{productId}")
-    public String updateAProduct(@PathVariable(name = "productId") Long productId, @RequestBody Product product){
-        return "Updating a product with id : " + productId + " with product : " + product;
+    public String updateAProduct(@PathVariable(name = "productId") Long productId, @RequestBody ProductDto productDto){
+        return "Updating a product with id : " + productId + " with product : " + productDto;
     }
 
     @DeleteMapping("{productId}")

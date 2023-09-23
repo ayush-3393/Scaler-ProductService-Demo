@@ -18,6 +18,4 @@ public class CategoryController {
         return "Returning product in a category with id " + categoryId;
     }
 
-
-
 }
