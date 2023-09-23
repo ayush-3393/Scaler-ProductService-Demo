@@ -1,26 +1,36 @@
 package com.scalerproductservice.scalerproductservicedemo.controllers;
 
 import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
+import com.scalerproductservice.scalerproductservicedemo.dtos.ProductResponseDto;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
+import com.scalerproductservice.scalerproductservicedemo.services.service_interfaces.ProductService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping()
-    public String getAllProducts(){
-        return "Returning all the products";
+    public ProductResponseDto[] getAllProducts(){
+        return productService.getAllProducts();
     }
 
     @GetMapping("{productId}")
-    public String getASingleProduct(@PathVariable(name = "productId") Long productId){
-        return "Returning a single product with id " + productId;
+    public ProductResponseDto getASingleProduct(@PathVariable(name = "productId") Long productId){
+        return productService.getASingleProduct(productId);
     }
 
     @PostMapping()
-    public String addNewProduct(@RequestBody ProductDto productDto){
-        return "Adding new Product with product " + productDto;
+    public ProductResponseDto addNewProduct(@RequestBody ProductDto productDto){
+        return productService.addNewProduct(productDto);
     }
 
     @PutMapping("{productId}")
