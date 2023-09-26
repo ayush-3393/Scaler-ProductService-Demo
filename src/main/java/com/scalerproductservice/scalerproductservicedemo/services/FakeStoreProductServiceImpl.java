@@ -173,7 +173,21 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String deleteAProduct(Long productId) {
-        return null;
+    public Product deleteAProduct(Long productId) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<ProductDto> entity=
+                restTemplate.getForEntity(
+                        "https://fakestoreapi.com/products/{id}", ProductDto.class, productId
+                );
+
+//        restTemplate.delete("https://fakestoreapi.com/products/{id}");
+        ProductDto productDto = entity.getBody();
+
+        Product product = updateAProduct(productId, productDto);
+
+        product.setIsDeleted(true);
+
+        return product;
     }
 }
