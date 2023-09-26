@@ -92,11 +92,28 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto addNewProduct(ProductDto productDto) {
-//        return restTemplate.getForObject(
-//                "https://fakestoreapi.com/products", ProductResponseDto.class
-//        );
-        return null;    // need to update
+    public Product addNewProduct(ProductDto productDto) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<ProductDto> entity= restTemplate.postForEntity("https://fakestoreapi.com/products",
+                productDto,
+                ProductDto.class);
+
+        ProductDto productDtoEntity = entity.getBody();
+
+        Product newProduct = new Product();
+
+        newProduct.setId(productDto.getId());
+        newProduct.setTitle(productDto.getTitle());
+        newProduct.setPrice(productDto.getPrice());
+        Category category = new Category();
+        category.setName(productDto.getCategory());
+        newProduct.setCategory(category);
+        newProduct.setDescription(productDto.getDescription());
+        newProduct.setImageUrl(productDto.getImage());
+
+        // Rating in the input is null, hence skipping that
+
+        return newProduct;
     }
 
     @Override
