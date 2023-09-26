@@ -1,7 +1,6 @@
 package com.scalerproductservice.scalerproductservicedemo.controllers;
 
 import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
-import com.scalerproductservice.scalerproductservicedemo.dtos.ProductResponseDto;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import com.scalerproductservice.scalerproductservicedemo.services.service_interfaces.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +18,17 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ProductResponseDto[] getAllProducts(){
+    public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
     @GetMapping("{productId}")
-    public ProductResponseDto getASingleProduct(@PathVariable(name = "productId") Long productId){
+    public ProductDto getASingleProduct(@PathVariable(name = "productId") Long productId){
         return productService.getASingleProduct(productId);
     }
 
     @PostMapping()
-    public ProductResponseDto addNewProduct(@RequestBody ProductDto productDto){
+    public ProductDto addNewProduct(@RequestBody ProductDto productDto){
         return productService.addNewProduct(productDto);
     }
 
