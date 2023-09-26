@@ -1,6 +1,7 @@
 package com.scalerproductservice.scalerproductservicedemo.controllers;
 
 import com.scalerproductservice.scalerproductservicedemo.models.Category;
+import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import com.scalerproductservice.scalerproductservicedemo.services.service_interfaces.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,11 @@ public class CategoryController {
     }
 
 
-    @GetMapping("/{categoryId}")
-    public String getProductInACategory(@PathVariable(name = "categoryId") Long categoryId){
-        return "Returning product in a category with id " + categoryId;
+    @GetMapping("/{categoryName}")
+    public ResponseEntity<List<Product>> getProductInACategory(@PathVariable(name = "categoryName")
+                                                                   String categoryName){
+        List<Product> list = categoryService.getProductInACategory(categoryName);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }

@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface CategoryService {
     List<Category> getAllCategories();
-    Product getProductInACategory(Long categoryId);
+    List<Product> getProductInACategory(String categoryName);
 }
