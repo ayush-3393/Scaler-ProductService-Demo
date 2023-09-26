@@ -102,14 +102,14 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
         Product newProduct = new Product();
 
-        newProduct.setId(productDto.getId());
-        newProduct.setTitle(productDto.getTitle());
-        newProduct.setPrice(productDto.getPrice());
+        newProduct.setId(productDtoEntity.getId());
+        newProduct.setTitle(productDtoEntity.getTitle());
+        newProduct.setPrice(productDtoEntity.getPrice());
         Category category = new Category();
-        category.setName(productDto.getCategory());
+        category.setName(productDtoEntity.getCategory());
         newProduct.setCategory(category);
-        newProduct.setDescription(productDto.getDescription());
-        newProduct.setImageUrl(productDto.getImage());
+        newProduct.setDescription(productDtoEntity.getDescription());
+        newProduct.setImageUrl(productDtoEntity.getImage());
 
         // Rating in the input is null, hence skipping that
 
@@ -117,8 +117,59 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String updateAProduct(Long productId, ProductDto productDto) {
-        return null;
+    public Product updateAProduct(Long productId, ProductDto productDto) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<ProductDto> entity=
+                restTemplate.getForEntity(
+                        "https://fakestoreapi.com/products/{id}", ProductDto.class, productId
+                );
+
+        ProductDto productDtoEntity = entity.getBody();
+
+        Product newProduct = new Product();
+
+        if (productDtoEntity.getId() != null){
+            newProduct.setId(productDtoEntity.getId());
+        }
+        else {
+            newProduct.setId(productDto.getId());
+        }
+        if (productDtoEntity.getTitle() != null){
+            newProduct.setTitle(productDtoEntity.getTitle());
+        }
+        else {
+            newProduct.setTitle(productDto.getTitle());
+        }
+        if(productDtoEntity.getPrice() != null){
+            newProduct.setPrice(productDtoEntity.getPrice());
+        }
+        else {
+            newProduct.setPrice(productDto.getPrice());
+        }
+        if(productDtoEntity.getDescription() != null){
+            newProduct.setDescription(productDtoEntity.getDescription());
+        }
+        else {
+            newProduct.setDescription(productDto.getDescription());
+        }
+        if(productDtoEntity.getImage() != null){
+            newProduct.setImageUrl(productDtoEntity.getImage());
+        }
+        else {
+            newProduct.setImageUrl(productDto.getImage());
+        }
+        Category category = new Category();
+
+        if(productDtoEntity.getCategory() != null){
+            category.setName(productDtoEntity.getCategory());
+        }
+        else {
+            category.setName(productDto.getCategory());
+        }
+        newProduct.setCategory(category);
+
+        return newProduct;
     }
 
     @Override
