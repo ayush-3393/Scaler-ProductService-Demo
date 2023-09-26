@@ -1,9 +1,13 @@
 package com.scalerproductservice.scalerproductservicedemo.services.service_interfaces;
 
+import com.scalerproductservice.scalerproductservicedemo.models.Category;
+import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 public interface CategoryService {
-    String getAllCategories();
-    String getProductInACategory(Long categoryId);
+    List<Category> getAllCategories();
+    Product getProductInACategory(Long categoryId);
 }

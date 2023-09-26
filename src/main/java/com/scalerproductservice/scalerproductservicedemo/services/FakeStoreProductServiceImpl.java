@@ -181,7 +181,6 @@ public class FakeStoreProductServiceImpl implements ProductService {
                         "https://fakestoreapi.com/products/{id}", ProductDto.class, productId
                 );
 
-//        restTemplate.delete("https://fakestoreapi.com/products/{id}");
         ProductDto productDto = entity.getBody();
 
         Product product = updateAProduct(productId, productDto);
