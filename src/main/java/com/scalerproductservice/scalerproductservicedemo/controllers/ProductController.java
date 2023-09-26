@@ -3,6 +3,8 @@ package com.scalerproductservice.scalerproductservicedemo.controllers;
 import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import com.scalerproductservice.scalerproductservicedemo.services.service_interfaces.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,12 @@ public class ProductController {
     }
 
     @GetMapping("{productId}")
-    public ProductDto getASingleProduct(@PathVariable(name = "productId") Long productId){
-        return productService.getASingleProduct(productId);
+    public ResponseEntity<Product> getASingleProduct(@PathVariable(name = "productId") Long productId){
+        ResponseEntity<Product> responseEntity = new ResponseEntity<>(
+                productService.getASingleProduct(productId),
+                HttpStatus.OK
+        );
+        return responseEntity;
     }
 
     @PostMapping()
