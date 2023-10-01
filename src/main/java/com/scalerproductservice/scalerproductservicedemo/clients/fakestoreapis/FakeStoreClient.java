@@ -1,5 +1,6 @@
 package com.scalerproductservice.scalerproductservicedemo.clients.fakestoreapis;
 
+import com.scalerproductservice.scalerproductservicedemo.models.Category;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import com.scalerproductservice.scalerproductservicedemo.utility.ProductUtility;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -112,5 +113,27 @@ public class FakeStoreClient {
                 productId
         );
         return responseEntity.getBody();
+    }
+
+    public List<String> getAllCategories(){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<String[]> response =
+                restTemplate.getForEntity(
+                        "https://fakestoreapi.com/products/categories",
+                        String[].class
+                );
+        return Arrays.asList(response.getBody());
+    }
+
+    public List<FakeStoreProductDto> getProductsInACategory(Category category){
+        String category_input= category.getName();
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto[]> responseEntity =
+                restTemplate.getForEntity(
+                        "https://fakestoreapi.com/products/category/{categoryName}",
+                        FakeStoreProductDto[].class,
+                        category_input
+                );
+        return Arrays.asList(responseEntity.getBody());
     }
 }

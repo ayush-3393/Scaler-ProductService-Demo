@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryService {
-    List<Category> getAllCategories();
-    List<Product> getProductInACategory(String categoryName);
+    Optional<List<Category>> getAllCategories();
+    Optional<List<Product>> getProductInACategory(Category category);
 }

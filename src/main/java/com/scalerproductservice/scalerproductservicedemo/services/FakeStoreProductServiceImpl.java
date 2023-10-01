@@ -22,6 +22,9 @@ public class FakeStoreProductServiceImpl implements ProductService {
     @Override
     public Optional<List<Product>> getAllProducts() {
         List<FakeStoreProductDto> fakeStoreProductDtos = fakeStoreClient.getAllProducts();
+        if (fakeStoreProductDtos == null){
+            return Optional.empty();
+        }
         List<Product> ans = new ArrayList<>();
         for (FakeStoreProductDto productDto : fakeStoreProductDtos){
             Product newProduct = ProductUtility.convertFakeStoreProductDtoToProduct(productDto);

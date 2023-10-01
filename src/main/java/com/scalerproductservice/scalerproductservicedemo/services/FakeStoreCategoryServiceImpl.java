@@ -1,83 +1,50 @@
 package com.scalerproductservice.scalerproductservicedemo.services;
 
-import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
+import com.scalerproductservice.scalerproductservicedemo.clients.fakestoreapis.FakeStoreClient;
+import com.scalerproductservice.scalerproductservicedemo.clients.fakestoreapis.FakeStoreProductDto;
 import com.scalerproductservice.scalerproductservicedemo.models.Category;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
 import com.scalerproductservice.scalerproductservicedemo.services.service_interfaces.CategoryService;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.ResponseEntity;
+import com.scalerproductservice.scalerproductservicedemo.utility.ProductUtility;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FakeStoreCategoryServiceImpl implements CategoryService {
+    private FakeStoreClient fakeStoreClient;
 
-    RestTemplateBuilder restTemplateBuilder;
-
-    public FakeStoreCategoryServiceImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplateBuilder = restTemplateBuilder;
+    public FakeStoreCategoryServiceImpl(FakeStoreClient fakeStoreClient) {
+        this.fakeStoreClient = fakeStoreClient;
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<String[]> entity =
-                restTemplate.getForEntity("https://fakestoreapi.com/products/categories",
-                        String[].class);
-
+    public Optional<List<Category>> getAllCategories() {
+        List<String> list = fakeStoreClient.getAllCategories();
+        if (list == null){
+            return Optional.empty();
+        }
         List<Category> ans = new ArrayList<>();
-
-        for (String n : entity.getBody()){
+        for (String category : list){
             Category newCategory = new Category();
-            newCategory.setName(n);
+            newCategory.setName(category);
             ans.add(newCategory);
         }
-
-        return ans;
+        return Optional.of(ans);
     }
 
-
-
     @Override
-    public List<Product> getProductInACategory(String categoryName) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://fakestoreapi.com/products/category/{categoryName}");
-        URI uri = builder.buildAndExpand(categoryName).toUri();
-
-        ResponseEntity<ProductDto[]> entity =
-                restTemplate.getForEntity(uri, ProductDto[].class);
-
-        List<Product> ans = new ArrayList<>();
-
-        for (ProductDto productDto : entity.getBody()){
-            Product newProduct = new Product();
-            newProduct.setId(productDto.getId());
-            newProduct.setTitle(productDto.getTitle());
-            newProduct.setPrice(productDto.getPrice());
-            Category category = new Category();
-            category.setName(productDto.getCategory());
-            newProduct.setCategory(category);
-            newProduct.setDescription(productDto.getDescription());
-            newProduct.setImageUrl(productDto.getImage());
-
-//            RatingDTO ratingDto = productDto.getRating();
-//
-//            Rating r = new Rating();
-//
-//            r.setRate(ratingDto.getRate());
-//            r.setCount(ratingDto.getCount());
-//
-//            newProduct.setRating(r);
-
-            ans.add(newProduct);
+    public Optional<List<Product>> getProductInACategory(Category category) {
+        List<FakeStoreProductDto> list = fakeStoreClient.getProductsInACategory(category);
+        if (list == null){
+            return Optional.empty();
         }
-        return ans;
-
+        List<Product> ans = new ArrayList<>();
+        for (FakeStoreProductDto fakeStoreProductDto : list){
+            ans.add(ProductUtility.convertFakeStoreProductDtoToProduct(fakeStoreProductDto));
+        }
+        return Optional.of(ans);
     }
 }
