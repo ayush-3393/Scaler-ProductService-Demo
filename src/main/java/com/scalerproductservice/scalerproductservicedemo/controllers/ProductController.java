@@ -24,12 +24,12 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<Product> getAllProducts() throws NotFoundException {
+    public ResponseEntity<List<Product>> getAllProducts() throws NotFoundException {
         Optional<List<Product>> optionalList = productService.getAllProducts();
         if (optionalList.isEmpty()){
             throw new NotFoundException("No Products Were Found!");
         }
-        return optionalList.get();
+        return new ResponseEntity<>(optionalList.get(), HttpStatus.OK);
     }
 
     @GetMapping("{productId}")
