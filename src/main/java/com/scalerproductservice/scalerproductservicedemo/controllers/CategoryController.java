@@ -26,9 +26,6 @@ public class CategoryController {
 
     @GetMapping()
     public ResponseEntity<List<Category>> getAllCategories() throws NotFoundException {
-//        List<Category> list = categoryService.getAllCategories();
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-
         Optional<List<Category>> optionalList = categoryService.getAllCategories();
         if (optionalList.isEmpty()){
             throw new NotFoundException("No Categories Found!!");
