@@ -1,11 +1,8 @@
 package com.scalerproductservice.scalerproductservicedemo.services;
 
-import com.scalerproductservice.scalerproductservicedemo.dtos.AllCategoryDTO;
 import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
-import com.scalerproductservice.scalerproductservicedemo.dtos.RatingDTO;
 import com.scalerproductservice.scalerproductservicedemo.models.Category;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
-import com.scalerproductservice.scalerproductservicedemo.models.Rating;
 import com.scalerproductservice.scalerproductservicedemo.services.service_interfaces.CategoryService;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service

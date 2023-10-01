@@ -4,16 +4,19 @@ import com.scalerproductservice.scalerproductservicedemo.dtos.ProductDto;
 import com.scalerproductservice.scalerproductservicedemo.models.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
-    List<Product> getAllProducts();
+    Optional<List<Product>> getAllProducts();
 
-    Product getASingleProduct(Long productId);
+    Optional<Product> getASingleProduct(Long productId);
 
-    Product addNewProduct(ProductDto productDto);
+    Optional<Product> addNewProduct(Product product);
 
-    Product updateAProduct(Long productId, ProductDto productDto);
+    Optional<Product> updateAProduct(Long productId, Product product);
 
-    Product deleteAProduct(Long productId);
+    Optional<Product> replaceAProduct(Long productId, Product product);
+
+    Optional<Product> deleteAProduct(Long productId);
 }

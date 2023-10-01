@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RatingDTO {
-    private Double rate;
-    private Double count;
+public class ErrorMessageDto {
+    private String errorMessage;
 }

@@ -1,5 +1,6 @@
-package com.scalerproductservice.scalerproductservicedemo.dtos;
+package com.scalerproductservice.scalerproductservicedemo.clients.fakestoreapis;
 
+import com.scalerproductservice.scalerproductservicedemo.dtos.RatingDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class ProductDto {
+public class FakeStoreProductDto {
     private Long id;
     private String title;
     private Double price;
