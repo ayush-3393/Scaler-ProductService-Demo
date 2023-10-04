@@ -8,3 +8,12 @@ Work done till 1st Oct (Sunday):
 3. Added Error Handling on ProductController by ExceptionAdvices.
 4. Created a utility class 'ProductUtility' which has all the static methods for converting one entity to another.
 5. Implemented Category Apis, similar to the implementation of Product Apis.
+
+For the 3rd Oct Lecture:
+1. Successfully connected the application with MySQL.
+2. In MySQL, created a new user with a password and granted it the privileges.
+3. Annotated the Models with @Entity
+4. Annotated the BaseModel with @MappedSuperClass
+5. For Primary Key, used @Id annotation.
+6. To generate the PKs automatically, used @GeneratedValue annotation with Generation Type Identity
+7. Created Repositories for the respective Models.
