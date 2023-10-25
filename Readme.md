@@ -18,7 +18,7 @@ For the 3rd Oct Lecture:
 6. To generate the PKs automatically, used @GeneratedValue annotation with Generation Type Identity
 7. Created Repositories for the respective Models.
 
-For 10th Oct Lecture:
+For the 10th Oct Lecture:
 1. Learned about EAGER and FETCH types
 2. Learned about PERSIST Cascading Type. If a new product is being saved with a new category, that category
     also gets saved in the DB along with the new Product.

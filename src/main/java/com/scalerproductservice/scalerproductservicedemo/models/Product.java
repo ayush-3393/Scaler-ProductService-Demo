@@ -12,7 +12,7 @@ public class Product extends BaseModel{
     private Double price;
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne
     private Category category;
     private String imageUrl;
 
