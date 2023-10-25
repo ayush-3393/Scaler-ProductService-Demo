@@ -23,3 +23,6 @@ For the 10th Oct Lecture:
 2. Learned about PERSIST Cascading Type. If a new product is being saved with a new category, that category
     also gets saved in the DB along with the new Product.
 3. Learned about REMOVE Cascading Type. If removing a product, it also removes the associated category.
+
+For the 15th Oct Lecture:
+Implemented the SelfProductService and SelfCategoryService and SelfProductService.
